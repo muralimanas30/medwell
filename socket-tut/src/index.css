@@ -1,0 +1,173 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+    themes: all;
+}
+
+@layer components {
+    .align-element {
+        @apply mx-auto max-w-6xl px-8;
+    }
+
+    .hover-glare {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        /* Text color */
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .hover-glare::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(120deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0), rgba(4, 136, 136, 0.267), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
+        background-size: 200% 200%;
+        background-position: 0% 0%;
+        transition: background-position 0.3s ease-in-out;
+        z-index: -1;
+    }
+
+    .hover-glare:hover::before {
+        background-position: 100% 100%;
+    }
+
+    .animate-slideTopLeft {
+        opacity: 0;
+        transform: translate(-10%, -10%);
+        animation: slideTopLeft 0.4s forwards ease-in-out;
+    }
+
+    /* Slide in from Top-Right */
+    .animate-slideTopRight {
+        opacity: 0;
+        transform: translate(10%, -10%);
+        animation: slideTopRight 0.4s forwards ease-in-out;
+    }
+
+    /* Slide in from Bottom-Right */
+    .animate-slideBottomRight {
+        opacity: 0;
+        transform: translate(10%, 10%);
+        animation: slideBottomRight 0.4s forwards ease-in-out;
+    }
+
+    /* Slide in from Bottom-Left */
+    .animate-slideBottomLeft {
+        opacity: 0;
+        transform: translate(-10%, 10%);
+        animation: slideBottomLeft 0.4s forwards ease-in-out;
+    }
+
+    /* Pop In Effect */
+    .animate-popIn {
+        opacity: 0;
+        transform: scale(0.8);
+        animation: popIn 0.3s forwards ease-in-out;
+    }
+
+    /* Slide in from Left */
+    .animate-slideLeft {
+        opacity: 0;
+        transform: translateX(-20%);
+        animation: slideLeft 0.4s forwards ease-in-out;
+    }
+
+    /* Slide in from Right */
+    .animate-slideRight {
+        opacity: 0;
+        transform: translateX(20%);
+        animation: slideRight 0.4s forwards ease-in-out;
+    }
+
+    /* Slide in from Bottom */
+    .animate-slideBottom {
+        opacity: 0;
+        transform: translateY(20%);
+        animation: slideBottom 0.4s forwards ease-in-out;
+    }
+
+    /* Slide in from Top */
+    .animate-slideTop {
+        opacity: 0;
+        transform: translateY(-20%);
+        animation: slideTop 0.4s forwards ease-in-out;
+    }
+
+}
+
+/* Keyframes for Animations */
+@keyframes slideTopLeft {
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes slideTopRight {
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes slideBottomRight {
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes slideBottomLeft {
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideLeft {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideRight {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideBottom {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideTop {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -7,6 +7,7 @@ import {Landing } from './components/index.js';
 import { action as registerAction } from './pages/Register.jsx';
 import { action as loginAction } from './pages/Login.jsx';
 import { ToastContainer } from 'react-toastify';
+import ModelPage from './pages/ModelPage.jsx';
 
 
 
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <CustomTitle text={`Profile Page`} />,
+      },
+      {
+        path: 'models',
+        element: <ModelPage/>,
       }
       ,
       {

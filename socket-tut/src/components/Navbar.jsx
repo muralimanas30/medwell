@@ -8,17 +8,17 @@ import { Navlinks } from './index';
 import { GiHealthNormal } from "react-icons/gi";
 function handleTheme() {
     const cur = document.documentElement.getAttribute('data-theme');
-    if (cur === 'dim')
+    if (cur === 'black')
         document.documentElement.setAttribute('data-theme', 'emerald');
     else
-        document.documentElement.setAttribute('data-theme', 'dim');
+        document.documentElement.setAttribute('data-theme', 'black');
     console.log(document.documentElement.getAttribute('data-theme'));
 }
 
 const Navbar = props => {
     return (
         <nav className="bg-base-200">
-            <div className="navbar align-element">
+            <div className="navbar px-16">
                 <div className="navbar-start flex items-center gap-x-4 relative">
                     <NavLink to="/" className="lg:flex btn btn-primary md:text-2xl items-center pb-0.5 text-xl">
                         Med <GiHealthNormal className="text-primary-content w-5 h-5" />

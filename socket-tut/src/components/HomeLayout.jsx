@@ -10,7 +10,7 @@ const HomeLayout = () => {
             <Navbar />
             {isPageLoading ? (
                 <Loading />
-            ) : (<section className='mx-10 py-8 w-[calc(100% - 2.5rem)]'>
+            ) : (<section className='py-8 mx-8'>
                 <Outlet />
             </section>)
             }

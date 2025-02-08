@@ -10,7 +10,7 @@ const Landing = props => {
     return (
         <>
             <Hero/>
-            <Models />
+            <Models onHome={true}/>
             <Reviews/>
         </>
     )

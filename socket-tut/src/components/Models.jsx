@@ -1,49 +1,53 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { CustomTitle, Card } from './index'
+import { FaExternalLinkAlt } from "react-icons/fa";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Card } from './index';
+import { Link } from "react-router-dom";
+import { modelsData } from '../utils/modelsData.js';
 
-const images = [
-    {
-        img: "https://thumbs.dreamstime.com/b/healthy-concept-mental-physical-social-health-isolated-white-background-three-important-things-necessary-good-state-188091536.jpg",
-        title:"Your Health + ",
-        text: "Know more about your personal health and simple yet impactful ways to improve it !!",
-    },
-    {
-        img: "https://thumbs.dreamstime.com/b/healthy-concept-mental-physical-social-health-isolated-white-background-three-important-things-necessary-good-state-188091536.jpg",
-        title:"Your WellBeing",
-        text: "Know more about your personal health and simple yet impactful ways to improve it !!",
-    },
-    {
-        img: "https://thumbs.dreamstime.com/b/healthy-concept-mental-physical-social-health-isolated-white-background-three-important-things-necessary-good-state-188091536.jpg",
-        title:"Your Medical Aid",
-        text: "Know more about your personal health and simple yet impactful ways to improve it !!",
-    }
-]
-
-const Models = (props) => {
+const Models = ({ onHome, heading, subHeading }) => {
     return (
-        <section className="mx-auto p-6">
-            <div className="text-center animate-popIn">
-                <h2 className="font-bold tracking-wider text-4xl text-primary">
-                    Try Our AI-Enhanced Chatbot
-                </h2>
-                <p className="mt-2 text-[blueviolet] text-lg">
-                    Experience next-gen AI with our interactive models.
+        <section className="mx-auto p-6 ">
+            <div className="text-center space-y-4 animate-popIn">
+                <h1 className="md:text-4xl sm:text-3xl text-2xl
+                font-bold text-primary">{heading || `Try Our AI-Enhanced Chatbot`}</h1>
+                <p className="md:text-lg sm:text-md text-gray-500 max-w-2xl mx-auto">{subHeading || `Experience next-gen AI with our interactive models.`}
                 </p>
             </div>
 
-            <div className="mt-8 w-full flex flex-wrap gap-10 animate-slideTop justify-around">
-                {
-                    images.map((image,index)=>{
-                        return <Card {...image} gradient={``} key={index}/>
-                    })
-                }
+            <div className="mt-8 w-full flex flex-wrap gap-10 animate-slideBottom justify-around">
+                {modelsData.map(({ img, title, text, path }, index) => (
+                    <Card
+                        key={index}
+                        img={img}
+                        title={title}
+                        text={text}
+                        path={path}
+                        onHome={onHome}
+                    />
+                ))}
             </div>
+
+            {onHome && (
+                <div className="mt-8 mx-auto w-full text-center">
+                    <Link
+                        to="/models"
+                        className="btn btn-secondary"
+                        aria-label="Visit AI models"
+                    >
+                        Visit <FaExternalLinkAlt />
+                    </Link>
+                    <span className="text-primary"> and try our models now</span>
+                </div>
+            )}
         </section>
     );
 };
 
+Models.propTypes = {
+    heading: PropTypes.string,
+    onHome: PropTypes.bool,
+    subHeading: PropTypes.string
+}
 
-Models.propTypes = {}
-
-export default Models
+export default Models;

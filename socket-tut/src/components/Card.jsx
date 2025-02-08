@@ -1,25 +1,33 @@
 import PropTypes from "prop-types"
 import React from 'react'
-
-const Card = ({ img, text, title, gradient
+import { Link } from "react-router-dom"
+import { FaExternalLinkAlt } from "react-icons/fa";
+const Card = ({ img, text, title, gradient, onHome
 
 }) => {
 
     return (
-        <div className={`w-96 card shadow-base-300 shadow-md hover-glare ${gradient || "custom-gradient5"} animate-slideBottom`}>
-            <figure className='px-10 pt-10'>
-                <img src={img} alt="" className="rounded-xl animate-pop" />
+        <div className={`sm:w-96 w-full card shadow-base-300 shadow-md text-white ${gradient || "custom-gradient5"} 
+    animate-slideBottom hover:scale-105 hover:shadow-2xl hover:shadow-accent-content 
+    transition duration-300 group`}>
+
+            <figure className='px-10 pt-10 w-full h-56 relative overflow-hidden'>
+                <img src={img} alt=""
+                    className="rounded-xl animate-pop h-full transition duration-300 
+            group-hover:brightness-110 group-hover:saturate-150 hover-glare"
+                />
             </figure>
             <div className="card-body items-center text-center">
-                <h2 className="card-title divider divider-neutral">
+                <h2 className="card-title divider divider-neutral md:text-xl text-md">
                     {title}
                 </h2>
-                <p>
+                <p className="sm:text-sm text-xs">
                     {text}
                 </p>
-                <div className="card-actions">
-                    <button className="btn btn-primary">try now</button>
-                </div>
+                {!onHome &&
+                    <div className="card-actions">
+                        <Link className="btn btn-primary" to={`/models/health`}>try now <FaExternalLinkAlt /></Link>
+                    </div>}
             </div>
         </div>
     )
@@ -28,8 +36,9 @@ const Card = ({ img, text, title, gradient
 Card.propTypes = {
     gradient: PropTypes.string,
     image: PropTypes.any,
-    text: PropTypes.any,
-    title: PropTypes.any
+    text: PropTypes.string,
+    title: PropTypes.string,
+    onHome: PropTypes.bool
 }
 
 export default Card

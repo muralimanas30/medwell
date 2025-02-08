@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { createBrowserRouter, createHashRouter, Router, RouterProvider } from 'react-router-dom';
-import { ErrorComponent, CustomTitle, HomeLayout as HomeComponent } from './components/index.js'
+import { ErrorComponent, CustomTitle, HomeLayout as HomeComponent,Chatbot } from './components/index.js'
 import { Login, Register, ModelPage, SubModelPage, ProfilePage, About } from './pages/index.js';
 import { Landing } from './components/index.js';
 import { action as registerAction } from './pages/Register.jsx';
 import { action as loginAction } from './pages/Login.jsx';
+import {action as profileAction } from './components/ProfileData.jsx'
 import { ToastContainer } from 'react-toastify';
-
-
-
+import {store} from './store.js'
+import { loader as subModelLoader } from './pages/SubModelPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +23,7 @@ const router = createBrowserRouter([
       {
         path: 'profile',
         element: <ProfilePage />,
+        action:profileAction(store)
       },
       {
         path: 'about',
@@ -35,18 +36,19 @@ const router = createBrowserRouter([
       {
         path: ':submodal',
         element: <SubModelPage />,
+        loader:subModelLoader(store),
         children: [
           {
-            path: 'health',
-            element: <CustomTitle text="Health Page" />,
+            path: 'diet',
+            element:  <Chatbot chatType="dietChat" />,
           },
           {
-            path: 'wellbeing',
-            element: <CustomTitle text="Wellness Page" />,
+            path: 'fitness',
+            element:  <Chatbot chatType="fitnessChat" />,
           },
           {
-            path: 'medical-aid',
-            element: <CustomTitle text="Fitness Page" />,
+            path: 'diagnosis',
+            element:  <Chatbot chatType="diagnosisChat" />,
           },
         ],
       },
@@ -56,12 +58,12 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />,
-    action: loginAction({})
+    action: loginAction(store)
   },
   {
     path: '/register',
     element: <Register />,
-    action: registerAction({})
+    action: registerAction(store)
 
   },
 

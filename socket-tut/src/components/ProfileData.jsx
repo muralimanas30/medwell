@@ -2,6 +2,27 @@ import React from "react";
 import { Form } from "react-router-dom";
 import { FormInput, FormCheckbox } from "./index";
 import FormRadiobox from "./FormRadiobox";
+import { toast } from "react-toastify";
+import { loginUser } from "../features/user/userSlice";
+
+export const action = (store)=>async({request})=>{
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData.entries())
+    console.log(store.getState());
+    try {
+        // const response = await axios.post("",data)
+        store.dispatch(loginUser(data))
+        toast.success('Form Data Submission Triggered',{
+            autoClose:1000
+        })
+    } catch (error) {
+        toast.error('Form Data Submission Error',{
+            autoClose:1000
+        })   
+    }
+    return null;
+}
+
 
 const ProfileData = () => {
     return (

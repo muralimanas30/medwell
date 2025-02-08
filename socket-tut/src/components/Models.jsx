@@ -16,13 +16,14 @@ const Models = ({ onHome, heading, subHeading }) => {
             </div>
 
             <div className="mt-8 w-full flex flex-wrap gap-10 animate-slideBottom justify-around">
-                {modelsData.map(({ img, title, text, path }, index) => (
+                {modelsData.map(({ img, title, text, path,chatType }, index) => (
                     <Card
                         key={index}
                         img={img}
                         title={title}
                         text={text}
                         path={path}
+                        chatType={chatType}
                         onHome={onHome}
                     />
                 ))}

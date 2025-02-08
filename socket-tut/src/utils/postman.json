@@ -1,0 +1,123 @@
+{
+    "info": {
+        "_postman_id": "279068e9-c28b-4283-a1df-b0f170866097",
+        "name": "1project",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+        "_exporter_id": "34877773"
+    },
+    "item": [
+        {
+            "name": "user",
+            "item": [
+                {
+                    "name": "register",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"name\":\"test\",\r\n    \"email\":\"test12345@gmail.com\",\r\n    \"password\":\"test123\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": "{{1project-base}}/auth/register"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "login",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": {
+                                "token": ""
+                            }
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"email\":\"test12345@gmail.com\",\r\n    \"password\":\"test123\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": "{{1project-base}}/auth/login"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "chat",
+            "item": [
+                {
+                    "name": "diagnose",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": {
+                                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2E3YmYzNDI2Y2U5M2MwNmY4ZDg5MmMiLCJuYW1lIjoidGVzdCIsImlhdCI6MTczOTA0NjcyNSwiZXhwIjoxNzQxNjM4NzI1fQ.K8qp-xSHZXPovpVwdPdfJa2POvA_uwi9glABQPl3-iM"
+                            }
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"message\":\"i am theeta testing\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": "{{1project-base}}/chat/diagnose"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "get all chats",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": {
+                                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2E3YmYzNDI2Y2U5M2MwNmY4ZDg5MmMiLCJuYW1lIjoidGVzdCIsImlhdCI6MTczOTA0NjcyNSwiZXhwIjoxNzQxNjM4NzI1fQ.K8qp-xSHZXPovpVwdPdfJa2POvA_uwi9glABQPl3-iM"
+                            }
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": "{{1project-base}}/chat/getAllChats"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "getDiagnosisChat",
+                    "request": {
+                        "auth": {
+                            "type": "bearer",
+                            "bearer": {
+                                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2E3YmYzNDI2Y2U5M2MwNmY4ZDg5MmMiLCJuYW1lIjoidGVzdCIsImlhdCI6MTczOTA0NjcyNSwiZXhwIjoxNzQxNjM4NzI1fQ.K8qp-xSHZXPovpVwdPdfJa2POvA_uwi9glABQPl3-iM"
+                            }
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": "{{1project-base}}/chat/getDiagnosisChat"
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "variable": [
+        {
+            "key": "1project-base",
+            "value": "http://localhost:5000",
+            "type": "default"
+        }
+    ]
+}

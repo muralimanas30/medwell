@@ -6,7 +6,7 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 const ErrorComponent = props => {
     const error = useRouteError();
 
-    // console.dir(routeError, { depth: null });
+    console.dir(error, { depth: null });
     if (error.status === 404) {
         return (
             <main className="h-screen w-auto grid place-items-center px-8">

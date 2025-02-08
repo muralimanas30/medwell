@@ -6,18 +6,24 @@ import FormInput from '../components/FormInput'
 import { SubmitBtn } from '../components'
 import { Link } from 'react-router-dom'
 import {toast} from 'react-toastify'
+import { loginUser } from '../features/user/userSlice'
+import axios from 'axios'
+import { getAllChats } from '../features/chat/chatSlice'
 export const action = (store) => async ({ request }) => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData);
+    console.log(data);
+    const url = 'https://medwell-backend.onrender.com/auth/login'
     try {
-        // const response = await axios.post()
+        const response = await axios.post(url,data);
         toast.success('Login triggered successfully', {
             autoClose: 1000
         });
-        
+        store.dispatch(loginUser(response.data))
+        store.dispatch(getAllChats())
         return redirect('/')
     } catch (error) {
-        // const error = error.msg 
+        
         console.log(error);
         toast.error('some error occured')
         return null;
@@ -43,8 +49,8 @@ const Login = props => {
                 </h4>
 
                 {/* Input Fields */}
-                <FormInput type="email" label="Email" name="identifier" required={true} defaultValue={`test@test.com`}/>
-                <FormInput type="password" label="Password" name="password" required={true} defaultValue={`secret`}/>
+                <FormInput type="email" label="Email" name="email" required={true} defaultValue={`test12345@gmail.com`}/>
+                <FormInput type="password" label="Password" name="password" required={true} defaultValue={`test123`}/>
 
                 {/* Buttons */}
                 <div className="mt-4 ">

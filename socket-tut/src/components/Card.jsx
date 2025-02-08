@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from "react-router-dom"
 import { FaExternalLinkAlt } from "react-icons/fa";
 import SpotlightCard from "./SpotlightCard";
-const Card = ({ index, img, text, title, gradient, onHome
+const Card = ({ index, img, text, title, gradient, onHome,path,chatType
 
 }) => {
 
@@ -16,16 +16,16 @@ const Card = ({ index, img, text, title, gradient, onHome
 
             <SpotlightCard
                 key={index}
-                className="custom-spotlight-card flex-1 py-8 h-auto flex flex-col justify-center"
+                className="custom-spotlight-card flex-1 sm:py-0 h-auto flex flex-col justify-center"
                 spotlightColor="rgba(0, 229, 255, 0.2)"
             >
-                <figure className='px-10 pt-10 w-full h-56 relative overflow-hidden'>
+                <figure className='sm:px-10 sm:pt-10 w-full h-56 relative overflow-hidden'>
                     <img src={img} alt=""
                         className="rounded-xl animate-pop h-full transition duration-300 
             group-hover:brightness-110 group-hover:saturate-150 hover-glare"
                     />
                 </figure>
-                <div className="card-body items-center text-center">
+                <div className="card-body text-center pb-0 sm:pb-6">
                     <h2 className="card-title divider divider-neutral md:text-xl text-md">
                         {title}
                     </h2>
@@ -33,8 +33,8 @@ const Card = ({ index, img, text, title, gradient, onHome
                         {text}
                     </p>
                     {!onHome &&
-                        <div className="card-actions">
-                            <Link className="btn btn-primary" to={`/models/health`}>try now <FaExternalLinkAlt /></Link>
+                        <div className="card-actions mx-auto mt-2">
+                            <Link className="btn btn-primary" to={`${path}`}>try now <FaExternalLinkAlt /></Link>
                         </div>}
                 </div>
             </SpotlightCard>
@@ -47,7 +47,9 @@ Card.propTypes = {
     image: PropTypes.any,
     text: PropTypes.string,
     title: PropTypes.string,
-    onHome: PropTypes.bool
+    onHome: PropTypes.bool,
+    link: PropTypes.string,
+    type: PropTypes.string
 }
 
 export default Card

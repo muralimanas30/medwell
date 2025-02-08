@@ -6,21 +6,20 @@ import { NavLink } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { Navlinks } from './index';
 import { GiHealthNormal } from "react-icons/gi";
-function handleTheme() {
-    const cur = document.documentElement.getAttribute('data-theme');
-    if (cur === 'night')
-        document.documentElement.setAttribute('data-theme', 'emerald');
-    else
-        document.documentElement.setAttribute('data-theme', 'night');
-    console.log(document.documentElement.getAttribute('data-theme'));
-}
+import { toggleTheme } from '../features/user/userSlice';
 
 const Navbar = props => {
+
+    const dispatch = useDispatch();
+    const handleTheme = () => {
+        dispatch(toggleTheme())
+    }
+
     return (
         <nav className="bg-base-200">
             <div className="navbar px-16">
                 <div className="navbar-start flex items-center gap-x-4 relative">
-                    <NavLink to="/" className="lg:flex btn btn-primary md:text-2xl items-center pb-0.5 text-xl">
+                    <NavLink to="/" className="hidden md:flex btn btn-primary md:text-2xl items-center pb-0.5 text-xl">
                         Med <GiHealthNormal className="text-primary-content w-5 h-5" />
                         Well
                     </NavLink>
@@ -46,10 +45,8 @@ const Navbar = props => {
 
                 <div className="navbar-end">
                     <label className="swap swap-flip">
-                        <input type="checkbox" onChange={() => {
-                            console.log('theme changed');
-                            handleTheme()
-                        }} />
+                        <input type="checkbox" onChange={handleTheme
+                        } />
                         <BsSunFill className='swap-on h-4 w-4' />
                         <BsMoonFill className='swap-off h-4 w-4' />
                     </label>

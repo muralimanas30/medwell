@@ -5,7 +5,7 @@ import FormRadiobox from "./FormRadiobox";
 
 const ProfileData = () => {
     return (
-        <section className="bg-gray-100 py-12 px-6 md:px-20 lg:px-40 w-full">
+        <section className="py-12 px-6 md:px-20 lg:px-40 w-full">
             <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                 {/* Left Side - Info Box */}
                 <div className="md:order-1 w-full lg:w-auto">
@@ -20,7 +20,7 @@ const ProfileData = () => {
                     </div>
                 </div>
 
-                {/* Right Side - Form */}
+
                 <div className="md:order-2">
                     <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-lg mx-auto">
                         <h2 className="text-3xl font-semibold text-gray-800 mb-6 text-center">

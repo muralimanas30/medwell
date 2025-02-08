@@ -5,8 +5,18 @@ import { Link } from 'react-router-dom';
 const ModelPage = () => {
     return (
         <section className="w-full mx-auto px-0 py-0">
+            <div className="sm:ml-12 breadcrumbs text-sm sm:text-md">
+                <ul>
+                    <li>
+                        <Link to='/'>Home</Link>
+                    </li>
+                    <li>
+                        <Link to='/models'>Models</Link>
+                    </li>
+                </ul>
+            </div>
             <div className="mt-8">
-                <Models onHome={false} heading={`Explore AI-Powered Health & Wellness`} subHeading={`Choose from our AI-driven models to receive personalized insights on health, wellness, and medical assistance.`}/>
+                <Models onHome={false} heading={`Explore AI-Powered Health & Wellness`} subHeading={`Choose from our AI-driven models to receive personalized insights on health, wellness, and medical assistance.`} />
             </div>
 
             {/* Additional Information Section */}

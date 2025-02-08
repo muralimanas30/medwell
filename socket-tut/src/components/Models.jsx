@@ -9,8 +9,9 @@ const Models = ({ onHome, heading, subHeading }) => {
     return (
         <section className="mx-auto p-6 ">
             <div className="text-center space-y-4 animate-popIn">
-                <h1 className="text-4xl font-bold text-primary">{heading || `Try Our AI-Enhanced Chatbot`}</h1>
-                <p className="text-lg text-gray-500 max-w-2xl mx-auto">{subHeading || `Experience next-gen AI with our interactive models.`}
+                <h1 className="md:text-4xl sm:text-3xl text-2xl
+                font-bold text-primary">{heading || `Try Our AI-Enhanced Chatbot`}</h1>
+                <p className="md:text-lg sm:text-md text-gray-500 max-w-2xl mx-auto">{subHeading || `Experience next-gen AI with our interactive models.`}
                 </p>
             </div>
 

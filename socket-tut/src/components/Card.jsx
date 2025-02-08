@@ -18,10 +18,10 @@ const Card = ({ img, text, title, gradient, onHome
                 />
             </figure>
             <div className="card-body items-center text-center">
-                <h2 className="card-title divider divider-neutral">
+                <h2 className="card-title divider divider-neutral md:text-xl text-md">
                     {title}
                 </h2>
-                <p>
+                <p className="sm:text-sm text-xs">
                     {text}
                 </p>
                 {!onHome &&

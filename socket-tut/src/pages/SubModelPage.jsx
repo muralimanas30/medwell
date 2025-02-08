@@ -14,9 +14,6 @@ const SubModelPage = () => {
                     <li>
                         <Link to='/models'>Models</Link>
                     </li>
-                    <li>
-                        {`${model}`}
-                    </li>
                 </ul>
             </div>
             <Outlet />

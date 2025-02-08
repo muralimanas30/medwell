@@ -16,7 +16,17 @@ const images = [
 const Hero = props => {
     return (
         <>
-            <div className="grid lg:grid-cols-2 gap-24 items-center mx-4 sm:mx-16">
+            <div className="mx-4 sm:mx-12 breadcrumbs text-sm sm:text-md">
+                <ul>
+                    <li>
+                        <Link to='/'>Home</Link>
+                    </li>
+                    <li>
+                        <Link to='/'></Link>
+                    </li>
+                </ul>
+            </div>
+            <div className="grid lg:grid-cols-2 gap-24 items-center mx-4 mt-4 sm:mx-16">
                 <div className='animate-slideLeft'>
                     <h1 className="max-w-2xl text-4xl font-bold tracking-tight sm:text-6xl">
                         AI-Powered Healthcare, Anytime, Anywhere, now easier than ever

@@ -8,10 +8,10 @@ import { Navlinks } from './index';
 import { GiHealthNormal } from "react-icons/gi";
 function handleTheme() {
     const cur = document.documentElement.getAttribute('data-theme');
-    if (cur === 'black')
+    if (cur === 'night')
         document.documentElement.setAttribute('data-theme', 'emerald');
     else
-        document.documentElement.setAttribute('data-theme', 'black');
+        document.documentElement.setAttribute('data-theme', 'night');
     console.log(document.documentElement.getAttribute('data-theme'));
 }
 

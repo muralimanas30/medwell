@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { createBrowserRouter, createHashRouter, Router, RouterProvider } from 'react-router-dom';
 import { ErrorComponent, CustomTitle, HomeLayout as HomeComponent } from './components/index.js'
-import { Login, Register, ModelPage, SubModelPage } from './pages/index.js';
+import { Login, Register, ModelPage, SubModelPage, ProfilePage, About } from './pages/index.js';
 import { Landing } from './components/index.js';
 import { action as registerAction } from './pages/Register.jsx';
 import { action as loginAction } from './pages/Login.jsx';
@@ -22,7 +22,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: <CustomTitle text="Profile Page" />,
+        element: <ProfilePage />,
+      },
+      {
+        path: 'about',
+        element: <About />,
       },
       {
         path: 'models',

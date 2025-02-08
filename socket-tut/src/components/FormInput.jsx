@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const FormInput = ({ label, name, type, defaultValue, size, required }) => {
+const FormInput = ({ label, name, type, defaultValue, size, required,placeholder }) => {
     return (
         <div className='form-control '>
             <label className='label block'>
@@ -11,8 +11,9 @@ const FormInput = ({ label, name, type, defaultValue, size, required }) => {
                 type={type}
                 name={name}
                 defaultValue={defaultValue}
-                className={`input input-bordered ${size || "w-xs"}`}
+                className={`input input-bordered ${size || ""}`}
                 required={required}
+                placeholder={placeholder}
             />
         </div>
     )
@@ -24,7 +25,8 @@ FormInput.propTypes = {
     name: PropTypes.string,
     required: PropTypes.any,
     size: PropTypes.string,
-    type: PropTypes.string
+    type: PropTypes.string,
+    placeholder: PropTypes.string
 }
 
 export default FormInput

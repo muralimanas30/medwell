@@ -54,7 +54,7 @@ const settings = {
     arrow:false,
     slidesToScroll: 1,
     autoplay: true,
-    speed: 2000,
+    speed: 5000,
     autoplaySpeed: 1,
     cssEase: 'linear',
     pauseOnHover: true,

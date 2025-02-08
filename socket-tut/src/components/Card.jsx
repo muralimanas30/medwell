@@ -2,15 +2,23 @@ import PropTypes from "prop-types"
 import React from 'react'
 import { Link } from "react-router-dom"
 import { FaExternalLinkAlt } from "react-icons/fa";
-const Card = ({ img, text, title, gradient, onHome
+import SpotlightCard from "./SpotlightCard";
+const Card = ({ index,img, text, title, gradient, onHome
 
 }) => {
 
     return (
-        <div className={`sm:w-96 w-full card shadow-base-300 shadow-md text-white ${gradient || "custom-gradient5"} 
+        
+        <div className={`sm:w-96 w-full card text-white shadow-lg rounded-3xl  
     animate-slideBottom hover:scale-105 hover:shadow-2xl hover:shadow-accent-content 
     transition duration-300 group`}>
 
+
+<SpotlightCard
+            key={index}
+            className="custom-spotlight-card flex-1 py-8 h-auto flex flex-col justify-center"
+            spotlightColor="rgba(0, 229, 255, 0.2)"
+          >
             <figure className='px-10 pt-10 w-full h-56 relative overflow-hidden'>
                 <img src={img} alt=""
                     className="rounded-xl animate-pop h-full transition duration-300 
@@ -29,6 +37,7 @@ const Card = ({ img, text, title, gradient, onHome
                         <Link className="btn btn-primary" to={`/models/health`}>try now <FaExternalLinkAlt /></Link>
                     </div>}
             </div>
+            </SpotlightCard>
         </div>
     )
 }

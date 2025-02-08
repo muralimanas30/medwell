@@ -9,6 +9,80 @@
         @apply mx-auto max-w-6xl px-8;
     }
 
+    .custom-gradient1 {
+        background: linear-gradient(to right, #ff7e5f, #feb47b);
+    }
+
+    .custom-gradient2 {
+        background: linear-gradient(to bottom, #4facfe, #00f2fe);
+    }
+
+    .custom-gradient3 {
+        background: repeating-linear-gradient(45deg, #ff6b6b, #ff6b6b 10px, #f06595 10px, #f06595 20px);
+    }
+
+    .custom-gradient4 {
+        background: repeating-linear-gradient(to left, #43cea2, #43cea2 15px, #185a9d 15px, #185a9d 30px);
+    }
+
+    .custom-gradient5 {
+        background: linear-gradient(to bottom, #1a1a2e, #16213e, #e94560, #0f3460);
+    }
+
+    .custom-gradient5-reverse {
+        background: linear-gradient(to top, #1a1a2e, #16213e, #e94560, #0f3460);
+    }
+
+    .custom-gradient6 {
+        background: repeating-linear-gradient(45deg, #121212, #121212 10px, #575757 10px, #dcdcdc 20px);
+    }
+
+    .custom-gradient7 {
+        background: repeating-linear-gradient(to left, #232526, #414345, #a8a8a8, #232526);
+    }
+
+    .custom-gradient8 {
+        background: linear-gradient(to top, #141E30, #243B55, #d3d3d3, #141E30);
+    }
+
+    .custom-gradient9 {
+        background: linear-gradient(to bottom, #1a1a2e, #16213e, #38ef7d, #0f3460);
+    }
+
+    .custom-gradient10 {
+        background: repeating-linear-gradient(45deg, #121212, #121212 10px, #57ff57 10px, #dcdcdc 20px);
+    }
+
+    .custom-gradient11 {
+        background: repeating-linear-gradient(to left, #0f2027, #203a43, #2c7744, #0f2027);
+    }
+
+    .custom-gradient12 {
+        background: linear-gradient(to top, #141E30, #243B55, #4caf50, #141E30);
+    }
+
+    .custom-gradient13 {
+        background: linear-gradient(to right, #2c3e50, #4ca1af, #b8e994);
+    }
+
+    .custom-gradient14 {
+        background: linear-gradient(to bottom, #37474f, #81c784, #e8f5e9);
+    }
+
+    .custom-gradient15 {
+        background: repeating-linear-gradient(45deg, #546e7a, #546e7a 10px, #a5d6a7 10px, #ffffff 20px);
+    }
+
+    .custom-gradient16 {
+        background: linear-gradient(to left, #3e5151, #decba4, #ffffff);
+    }
+
+    .custom-gradient17 {
+        background: linear-gradient(to top, #556270, #4ecdc4, #c7f464);
+    }
+
+
+
     .hover-glare {
         position: relative;
         overflow: hidden;

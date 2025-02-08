@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { createBrowserRouter, createHashRouter, Router, RouterProvider } from 'react-router-dom';
 import { ErrorComponent, CustomTitle, HomeLayout as HomeComponent } from './components/index.js'
 import {Login,Register } from './pages/index.js';
+import {Landing } from './components/index.js';
 import { action as registerAction } from './pages/Register.jsx';
 import { action as loginAction } from './pages/Login.jsx';
 import { ToastContainer } from 'react-toastify';
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <CustomTitle text={`Home Layout`} />,
+        element: <Landing/>,
       },
       {
         path: 'profile',

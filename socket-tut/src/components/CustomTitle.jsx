@@ -4,8 +4,9 @@ import { Navigate, useNavigate } from 'react-router-dom'
 const CustomTitle = ({ text }) => {
 
     return (
-        <div className="m-4 rounded-lg p-4 bg-secondary hover:bg-success group transition duration-200">
-            <h2 className="text-4xl capitalize text-secondary-content group-hover:text-success-content">
+        <div className="mt-4 rounded-lg p-4 group transition duration-200">
+            <hr className='' style={{color:'grey'}}/>
+            <h2 className="mt-2 text-4xl capitalize ">
                 {text || `Custom Title`}
             </h2>
         </div>

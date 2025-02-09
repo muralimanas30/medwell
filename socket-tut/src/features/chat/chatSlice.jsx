@@ -5,8 +5,12 @@ import axios from "axios";
 const initialState = {
     diagnosisChat: [],
     dietChat: [],
-    fitnessChat: []
+    fitnessChat: [],
+    loading: false,
+    error: null,
+    success: false,
 };
+
 
 const url = 'https://medwell-backend.onrender.com/chat/';
 
@@ -95,6 +99,40 @@ const chatSlice = createSlice({
             state[type] = [];
         },
         clearAllChats: () => initialState,
+    },
+    extraReducers: (builder) => {
+        builder
+            // **Handling sendMessage**
+            .addCase(sendMessage.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+                state.success = false;
+            })
+            .addCase(sendMessage.fulfilled, (state) => {
+                state.loading = false;
+                state.success = true;
+            })
+            .addCase(sendMessage.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+                state.success = false;
+            })
+
+            // **Handling getAllChats**
+            .addCase(getAllChats.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+                state.success = false;
+            })
+            .addCase(getAllChats.fulfilled, (state) => {
+                state.loading = false;
+                state.success = true;
+            })
+            .addCase(getAllChats.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+                state.success = false;
+            });
     }
 });
 

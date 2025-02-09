@@ -50,7 +50,7 @@ const Login = props => {
 
                 {/* Input Fields */}
                 <FormInput type="email" label="Email" name="email" required={true} defaultValue={`test12345@gmail.com`}/>
-                <FormInput type="password" label="Password" name="password" required={true} defaultValue={`test123`}/>
+                <FormInput type="password" label="Password" name="password" required={true} defaultValue={`secret`}/>
 
                 {/* Buttons */}
                 <div className="mt-4 ">
@@ -58,7 +58,7 @@ const Login = props => {
                 </div>
                 <button
                     type="button"
-                    className="btn btn-secondary btn-block mt-2   w-xs transition-all hover:bg-secondary/80 hover:shadow-lg"
+                    className="btn btn-secondary btn-block mt-2 transition-all hover:bg-secondary/80 hover:shadow-lg"
                     onClick={() => {
                         console.log('login')
                     }}

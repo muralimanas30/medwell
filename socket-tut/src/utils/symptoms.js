@@ -1,0 +1,22 @@
+export const diagnosisPrompts = [
+    "Cough",
+    "Fever",
+    "Headache",
+    "Sore throat",
+    "Runny nose",
+    "Muscle aches",
+    "Fatigue",
+    "Chills",
+    "Nausea",
+    "Body pain",
+    "Shortness of breath",
+    "Chest tightness",
+    "Abdominal pain",
+    "Diarrhea",
+    "Vomiting",
+    "Dizziness",
+    "Swollen lymph nodes",
+    "Rash",
+    "Loss of appetite",
+    "Night sweats"
+]

@@ -30,11 +30,11 @@ const Chatbot = ({ chatType }) => {
                     chatMessages.map((chatItem, index) => (
                         <div
                             key={index}
-                            className={`mb-2 p-2 rounded-lg text-sm ${
+                            className={`mb-2  w-automax-w-[70%] p-2 rounded-lg text-sm ${
                                 chatItem.role === "user" ? "bg-blue-200 text-right" : "bg-green-200 text-left"
                             }`}
                         >
-                            <strong>{chatItem.role}:</strong>
+                            <strong className="text-neutral">{chatItem.role}:</strong>
                             {/* Render AI response as Markdown */}
                             <MarkdownRenderer markdown={chatItem.msg} />
                         </div>

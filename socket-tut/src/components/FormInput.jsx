@@ -11,7 +11,7 @@ const FormInput = ({ label, name, type, defaultValue, size, required,placeholder
                 type={type}
                 name={name}
                 defaultValue={defaultValue}
-                className={`input input-bordered ${size || ""}`}
+                className={`input text-black font-bold input-bordered ${size || ""}`}
                 required={required}
                 placeholder={placeholder}
             />

@@ -4,21 +4,27 @@ import { FormInput, FormCheckbox } from "./index";
 import FormRadiobox from "./FormRadiobox";
 import { toast } from "react-toastify";
 import { loginUser } from "../features/user/userSlice";
+import axios from "axios";
 
-export const action = (store)=>async({request})=>{
+const url = 'https://medwell-backend.onrender.com/user/updateUser/';
+export const action = (store) => async ({ request }) => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries())
-    console.log(store.getState());
+    const token = store?.userState?.user?.token;
+    const userId = store?.userState?.user?.userId;
+    const response = await axios.patch(url+userId, data, {
+        headers: { Authorization: `Bearer ${token}` }
+    })
     try {
-        // const response = await axios.post("",data)
-        store.dispatch(loginUser(data))
-        toast.success('Form Data Submission Triggered',{
-            autoClose:1000
+        store.dispatch(loginUser(response.data))
+        toast.success('Form Data Submission Triggered', {
+            autoClose: 1000
         })
     } catch (error) {
-        toast.error('Form Data Submission Error',{
-            autoClose:1000
-        })   
+        toast.error('Form Data Submission Error', {
+            autoClose: 1000
+        })
+        console.log(error);
     }
     return null;
 }
@@ -100,9 +106,9 @@ const ProfileData = () => {
                             />
 
                             <FormInput
-                                label="Previous Conditions"
+                                label="diseases"
                                 type="text"
-                                name="prevConditions"
+                                name="diseases"
                                 defaultValue=""
                                 placeholder="Space separated"
                                 className="w-full"

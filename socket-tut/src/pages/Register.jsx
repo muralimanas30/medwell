@@ -29,7 +29,7 @@ export const action = (store) => async ({ request }) => {
         store.dispatch(loginUser(response.data));
         store.dispatch(getAllChats());
 
-        return redirect('/');
+        return redirect('/profile');
     } catch (error) {
         console.error(error);
         toast.error('Some error occurred');

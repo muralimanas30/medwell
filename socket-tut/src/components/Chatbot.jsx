@@ -2,19 +2,24 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux';
 import { sendMessage, getAllChats } from '../features/chat/chatSlice';
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import SubmitBtn from './SubmitBtn';
+
 const Chatbot = ({ chatType }) => {
     const dispatch = useDispatch();
-    const chatMessages = useSelector((state) => state.chat[chatType]); 
+    const chatMessages = useSelector((state) => state.chat[chatType]);
+    const { loading } = useSelector(state => state.chat)
     const [message, setMessage] = useState("");
 
-    
+
     const handleSendMessage = () => {
         if (!message.trim()) return;
         dispatch(sendMessage({ type: chatType, message }));
-        setMessage(""); 
+        setMessage("");
     };
 
-    
+
     const handleGetChats = () => {
         dispatch(getAllChats());
     };
@@ -45,10 +50,10 @@ const Chatbot = ({ chatType }) => {
                     placeholder="Type a message..."
                     className="flex-grow p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
-                <button onClick={handleSendMessage} className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
-                    Send
+                <button onClick={handleSendMessage} disabled={loading} className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+                    {loading ? <span className="loading loading-dots loading-lg"></span> : 'Send'}
                 </button>
-                <button onClick={handleGetChats} className="ml-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+                <button onClick={handleGetChats} disabled={loading} className="ml-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
                     Fetch
                 </button>
             </div>

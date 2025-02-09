@@ -10,9 +10,10 @@ const url = 'https://medwell-backend.onrender.com/user/updateUser/';
 export const action = (store) => async ({ request }) => {
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries())
-    const token = store?.userState?.user?.token;
-    const userId = store?.userState?.user?.userId;
-    const response = await axios.patch(url+userId, data, {
+    const token = store.getState().userState?.user?.token;
+    const userId = store.getState().userState?.user?.userId;
+
+    const response = await axios.patch(url + userId, data, {
         headers: { Authorization: `Bearer ${token}` }
     })
     try {
@@ -62,7 +63,7 @@ const ProfileData = () => {
                                 type="number"
                                 name="age"
                                 defaultValue="25"
-                                required
+                                required={true}
                                 className="w-full"
                             />
 
@@ -83,7 +84,7 @@ const ProfileData = () => {
                                 type="number"
                                 name="height"
                                 defaultValue="175"
-                                required
+                                required={true}
                                 className="w-full"
                             />
 
@@ -92,7 +93,7 @@ const ProfileData = () => {
                                 type="number"
                                 name="weight"
                                 defaultValue="70"
-                                required
+                                required={true}
                                 className="w-full"
                             />
 

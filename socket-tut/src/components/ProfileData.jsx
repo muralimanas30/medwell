@@ -3,7 +3,7 @@ import { Form } from "react-router-dom";
 import { FormInput, FormCheckbox } from "./index";
 import FormRadiobox from "./FormRadiobox";
 import { toast } from "react-toastify";
-import { loginUser } from "../features/user/userSlice";
+import { loginUser, updateUser } from "../features/user/userSlice";
 import axios from "axios";
 
 const url = 'https://medwell-backend.onrender.com/user/updateUser/';
@@ -13,11 +13,13 @@ export const action = (store) => async ({ request }) => {
     const token = store.getState().userState?.user?.token;
     const userId = store.getState().userState?.user?.userId;
 
+    store.dispatch(updateUser(data));
+    
     const response = await axios.patch(url + userId, data, {
         headers: { Authorization: `Bearer ${token}` }
     })
     try {
-        store.dispatch(loginUser(response.data))
+        // store.dispatch(loginUser(data))
         toast.success('Form Data Submission Triggered', {
             autoClose: 1000
         })
@@ -77,6 +79,8 @@ const ProfileData = () => {
                                     { value: "other", label: "Other" },
                                 ]}
                                 onChange={(e) => console.log(e.target.value)}
+                                required={true}
+
                             />
 
                             <FormInput

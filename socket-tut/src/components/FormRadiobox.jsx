@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const FormRadiobox = ({ label, name, defaultChecked, options, ...rest }) => {
+const FormRadiobox = ({ label, name, defaultChecked, options, required, ...rest }) => {
     return (
         <div className="form-control">
             <label className="label">
@@ -16,6 +16,7 @@ const FormRadiobox = ({ label, name, defaultChecked, options, ...rest }) => {
                             value={option.value}
                             defaultChecked={defaultChecked === option.value}
                             className="radio mr-2"
+                            required={required}
                             {...rest}
                         />
                         <span className="label-text">{option.label}</span>

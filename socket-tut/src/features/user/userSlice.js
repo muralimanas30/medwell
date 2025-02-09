@@ -28,6 +28,11 @@ const userSlice = createSlice({
             localStorage.setItem("user", JSON.stringify(state.user));
             toast.success("Successfully logged in");
         },
+        updateUser:(state,action)=>{
+            state.user = { ...state.user, ...action.payload };
+            localStorage.setItem("user", JSON.stringify(state.user));
+            toast.success("Successfully logged in");
+        },
         logoutUser: (state) => {
             state.user = null;
             localStorage.removeItem("user");
@@ -42,5 +47,5 @@ const userSlice = createSlice({
     },
 });
 
-export const { loginUser, logoutUser, toggleTheme } = userSlice.actions;
+export const { loginUser, logoutUser, toggleTheme,updateUser } = userSlice.actions;
 export default userSlice.reducer;

@@ -20,7 +20,7 @@ const Chatbot = ({ chatType }) => {
     const handleGetChats = () => {
         dispatch(getAllChats());
     };
-
+//temp
     return (
         <div className="w-full mx-auto my-6 p-6 bg-white shadow-lg rounded-lg">
             <h2 className="text-lg font-bold text-gray-800 mb-3">Chatbot ({chatType})</h2>

@@ -58,7 +58,7 @@ const Login = props => {
                 </div>
                 <button
                     type="button"
-                    className="btn btn-secondary btn-block mt-2   w-xs transition-all hover:bg-secondary/80 hover:shadow-lg"
+                    className="btn btn-secondary btn-block mt-2 transition-all hover:bg-secondary/80 hover:shadow-lg"
                     onClick={() => {
                         console.log('login')
                     }}

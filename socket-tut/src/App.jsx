@@ -6,6 +6,7 @@ import { Login, Register, ModelPage, SubModelPage, ProfilePage, About } from './
 import { Landing } from './components/index.js';
 import { action as registerAction } from './pages/Register.jsx';
 import { action as loginAction } from './pages/Login.jsx';
+
 import {action as profileAction } from './components/ProfileData.jsx'
 import { ToastContainer } from 'react-toastify';
 import {store} from './store.js'

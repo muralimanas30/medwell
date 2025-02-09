@@ -20,11 +20,11 @@ const Chatbot = ({ chatType }) => {
     };
 
     return (
-        <div className="w-full max-w-md mx-auto my-6 p-6 bg-white shadow-lg rounded-lg">
+        <div className="w-full mx-auto my-6 p-6 bg-white shadow-lg rounded-lg">
             <h2 className="text-lg font-bold text-gray-800 mb-3">Chatbot ({chatType})</h2>
 
             {/* Chatbox */}
-            <div className="h-64 overflow-y-auto border border-gray-300 p-3 rounded-lg bg-gray-100">
+            <div className="h-96 overflow-y-auto border border-gray-300 p-3 rounded-lg bg-gray-100">
                 {chatMessages && chatMessages.length > 0 ? (
                     chatMessages.map((chatItem, index) => (
                         <p key={index} className={`mb-2 p-2 rounded-lg text-sm ${chatItem.role === "user" ? "bg-blue-200 text-right" : "bg-green-200 text-left"}`}>

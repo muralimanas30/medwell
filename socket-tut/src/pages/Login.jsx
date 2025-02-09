@@ -50,7 +50,7 @@ const Login = props => {
 
                 {/* Input Fields */}
                 <FormInput type="email" label="Email" name="email" required={true} defaultValue={`test12345@gmail.com`}/>
-                <FormInput type="password" label="Password" name="password" required={true} defaultValue={`test123`}/>
+                <FormInput type="password" label="Password" name="password" required={true} defaultValue={`secret`}/>
 
                 {/* Buttons */}
                 <div className="mt-4 ">

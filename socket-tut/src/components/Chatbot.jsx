@@ -2,12 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendMessage, getAllChats } from '../features/chat/chatSlice';
-<<<<<<< HEAD
 import MarkdownRenderer from './MarkdownRenderer';
 import Symptoms from './Symptoms'; // Import Symptoms
-=======
-import MarkdownRenderer from './MarkdownRenderer'; // Import the MarkdownRenderer
->>>>>>> b3fe8013616ac8849b3d1f986ef085c01cff95a7
 
 const Chatbot = ({ chatType }) => {
     const dispatch = useDispatch();
@@ -15,7 +11,6 @@ const Chatbot = ({ chatType }) => {
     const { loading } = useSelector(state => state.chat);
     const [message, setMessage] = useState("");
 
-<<<<<<< HEAD
     const [showOptions, setShowOptions] = useState(true);
     const [response, setResponse] = useState(null);
     const [showSymptoms, setShowSymptoms] = useState(true); // Show Symptoms initially
@@ -26,7 +21,6 @@ const Chatbot = ({ chatType }) => {
         setResponse(null);
         setShowSymptoms(false);
     };
-=======
     // Ref for the chat container
     const chatContainerRef = useRef(null);
 
@@ -41,7 +35,6 @@ const Chatbot = ({ chatType }) => {
         handleGetChats();
     }, []);
 
->>>>>>> b3fe8013616ac8849b3d1f986ef085c01cff95a7
 
     const handleSendMessage = () => {
         if (!message.trim()) return;
@@ -53,13 +46,6 @@ const Chatbot = ({ chatType }) => {
         dispatch(getAllChats());
     };
 
-<<<<<<< HEAD
-
-    
-
-
-=======
->>>>>>> b3fe8013616ac8849b3d1f986ef085c01cff95a7
     return (
         <div className="w-full mx-auto my-6 p-6 bg-white shadow-lg rounded-lg relative">
             {/* Symptoms Component (Appears on top) */}
@@ -80,23 +66,11 @@ const Chatbot = ({ chatType }) => {
                     chatMessages.map((chatItem, index) => (
                         <div
                             key={index}
-<<<<<<< HEAD
                             className={`mb-2 w-auto max-w-[70%] p-2 rounded-lg text-sm ${chatItem.role === "user" ? "bg-blue-200 text-right" : "bg-green-200 text-left"
                                 }`}
                         >
                             <strong className="text-neutral">{chatItem.role}:</strong>
                             <MarkdownRenderer markdown={chatItem.msg} />
-=======
-                            className={`mb-2 max-w-[70%] p-2 rounded-lg text-sm ${
-                                chatItem.role === "user"
-                                    ? "ml-auto bg-blue-200 text-right" // User message (right-aligned)
-                                    : "mr-auto bg-green-200 text-left" // Bot message (left-aligned)
-                            }`}
-                        >
-                            <strong className="text-neutral">{chatItem.role}:</strong>
-                            {/* Render AI response as Markdown */}
-                            <MarkdownRenderer markdown={chatItem.msg} />    
->>>>>>> b3fe8013616ac8849b3d1f986ef085c01cff95a7
                         </div>
                     ))
                 ) : (

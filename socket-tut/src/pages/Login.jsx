@@ -49,8 +49,8 @@ const Login = props => {
                 </h4>
 
                 {/* Input Fields */}
-                <FormInput type="email" label="Email" name="email" required={true} defaultValue={`test12345@gmail.com`}/>
-                <FormInput type="password" label="Password" name="password" required={true} defaultValue={`secret`}/>
+                <FormInput className="text-white" type="email" label="Email" name="email" required={true} defaultValue={`test12345@gmail.com`}/>
+                <FormInput className="font-white" type="password" label="Password" name="password" required={true} defaultValue={`secret`}/>
 
                 {/* Buttons */}
                 <div className="mt-4 ">

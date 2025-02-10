@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { diagnosisPrompts } from '../utils/symptoms';
+import { chatCategories } from '../utils/symptoms';
 
-const Symptoms = ({ onSubmit,setShowSymptoms }) => {
+const Symptoms = ({ onSubmit,setShowSymptoms,userOptions }) => {
     const [selectedSymptoms, setSelectedSymptoms] = useState([]);
-
+    userOptions ||= chatCategories["dietChat"]
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target;
         setSelectedSymptoms((prev) =>
@@ -18,7 +18,7 @@ const Symptoms = ({ onSubmit,setShowSymptoms }) => {
 
                 {/* Scrollable Grid */}
                 <div className="max-h-80 overflow-y-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 p-2 border border-gray-300 rounded-lg">
-                    {diagnosisPrompts.map((symptom, index) => (
+                    {userOptions.map((symptom, index) => (
                         <div key={index} className="flex items-center">
                             <input
                                 type="checkbox"
@@ -53,7 +53,8 @@ const Symptoms = ({ onSubmit,setShowSymptoms }) => {
 
 Symptoms.propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    setShowSymptoms: PropTypes.func
+    setShowSymptoms: PropTypes.func,
+    userOptions: PropTypes.array
 };
 
 export default Symptoms;

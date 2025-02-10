@@ -27,6 +27,7 @@ const userSlice = createSlice({
             state.user = { ...action.payload.user, token: action.payload.token };
             localStorage.setItem("user", JSON.stringify(state.user));
             toast.success("Successfully logged in");
+            console.log(state.user);
         },
         updateUser:(state,action)=>{
             state.user = { ...state.user, ...action.payload };

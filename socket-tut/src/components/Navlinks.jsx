@@ -7,6 +7,7 @@ const links = [
     { id: 2, url: 'about', text: 'about' },
     { id: 3, url: 'models', text: 'chat' },
     { id: 4, url: 'profile', text: 'profile' },
+    { id: 5, url: 'video', text: 'Consult Doctor' },
 ];
 
 const Navlink = props => {

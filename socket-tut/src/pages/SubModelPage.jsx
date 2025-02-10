@@ -16,7 +16,7 @@ const SubModelPage = () => {
 
 
 
-    return (
+    return ( 
         <div>
             <div className="sm:ml-12 breadcrumbs text-sm sm:text-md capitalize animate-slideLeft">
                 <ul>

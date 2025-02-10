@@ -4,14 +4,14 @@ import PropTypes from 'prop-types'
 const FormInput = ({ label, name, type, defaultValue, size, required,placeholder }) => {
     return (
         <div className='form-control '>
-            <label className='label block'>
+            <label className='label text-neutral block'>
                 <span className='label-text capitalize'>{label}</span>
             </label>
             <input
                 type={type}
                 name={name}
                 defaultValue={defaultValue}
-                className={`input text-black font-bold input-bordered ${size || ""}`}
+                className={`input text-neutral bg-white font-bold input-bordered ${size || ""}`}
                 required={required}
                 placeholder={placeholder}
             />

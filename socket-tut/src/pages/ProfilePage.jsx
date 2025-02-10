@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { ProfileData } from '../components'
 const ProfilePage = props => {
     return (
-        <section className="w-full mx-auto px-0 py-0">
+        <section className="w-full mx-auto bg-base-200 px-0 py-0">
             <div className="sm:ml-12 breadcrumbs text-sm sm:text-md">
                 <ul>
                     <li>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const FormCheckbox = ({ label, name, defaultValue, size }) => {
     return (
-        <div className="form-control flex flex-col items-center ">
+        <div className="form-control text-neutral flex flex-col items-center ">
             <label htmlFor={name} className='label cursor-pointer block'>
                 <span className='label-text capitalize'>{label}</span>
             </label>

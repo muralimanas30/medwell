@@ -12,7 +12,7 @@ const teamMembers = [
 
 const About = () => {
     return (
-        <section className="w-full mx-auto px-6 py-12 bg-base-200 min-h-screen">
+        <section className="w-full my-0 mx-auto px-6 py-12 bg-base-200 min-h-screen">
             {/* Breadcrumb Navigation */}
             <div className="text-sm breadcrumbs mb-6 text-gray-600">
                 <ul>

@@ -68,7 +68,7 @@ const ProfileData = () => {
                                 name="age"
                                 defaultValue="25"
                                 required={true}
-                                className="w-full"
+                                className="bg-primary w-full"
                             />
 
                             <FormRadiobox

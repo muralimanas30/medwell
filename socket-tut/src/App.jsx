@@ -11,6 +11,7 @@ import {action as profileAction } from './components/ProfileData.jsx'
 import { ToastContainer } from 'react-toastify';
 import {store} from './store.js'
 import { loader as subModelLoader } from './pages/SubModelPage.jsx';
+import VideoChat from './pages/VideoChat.jsx';
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
             element:  <Chatbot chatType="diagnosisChat" />,
           },
         ],
+      },
+      {
+        path: 'video',
+        element: <VideoChat /> || <CustomTitle text={"VIDEO CHAT"}/> ,
       },
     ],
     errorElement: <ErrorComponent />

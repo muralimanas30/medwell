@@ -3,7 +3,7 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import PropTypes from 'prop-types';
 import { Form, redirect } from 'react-router-dom';
 import FormInput from '../components/FormInput';
-import { SubmitBtn } from '../components';
+import { FormCheckbox, SubmitBtn } from '../components';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -59,6 +59,7 @@ const Register = (props) => {
                 <FormInput type="text" label="name" name="name" required={true} defaultValue="James Bond" />
                 <FormInput type="email" label="Email" name="email" required={true} defaultValue="test@test.com" />
                 <FormInput type="password" label="Password" name="password" required={true} defaultValue="secret" />
+                <FormCheckbox label="Are you a doctor" name="isDoctor" />
 
                 {/* Buttons */}
                 <div className="mt-4">

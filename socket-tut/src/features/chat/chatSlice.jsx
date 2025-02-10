@@ -65,7 +65,7 @@ export const getAllChats = createAsyncThunk(
             const response = await axios.get(`${url}getAllChats`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
-
+            console.dir(response.data,{depth:null});
             thunkAPI.dispatch(setAllChats(response.data));
 
             toast.success("All chats retrieved!", { autoClose: 1000 });

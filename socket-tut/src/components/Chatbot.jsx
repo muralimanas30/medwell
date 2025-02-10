@@ -2,8 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendMessage, getAllChats } from '../features/chat/chatSlice';
-import MarkdownRenderer from './MarkdownRenderer';
-import Symptoms from './Symptoms'; // Import Symptoms
+import MarkdownRenderer from './MarkdownRenderer'; // Import the MarkdownRenderer
+import Symptoms from './Symptoms'
+import { chatCategories } from '../utils/symptoms';
+
+
 
 const Chatbot = ({ chatType }) => {
     const dispatch = useDispatch();
@@ -14,6 +17,9 @@ const Chatbot = ({ chatType }) => {
     const [showOptions, setShowOptions] = useState(true);
     const [response, setResponse] = useState(null);
     const [showSymptoms, setShowSymptoms] = useState(true); // Show Symptoms initially
+
+
+    console.log(chatType);
 
     const handleSubmit = async (selectedOptions) => {
         const message = selectedOptions.join(", ") + " are my selected options.";
@@ -51,7 +57,7 @@ const Chatbot = ({ chatType }) => {
             {/* Symptoms Component (Appears on top) */}
             {showSymptoms && (
                 <div className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-90 flex justify-center items-center z-50">
-                    <Symptoms onSubmit={handleSubmit} setShowSymptoms={setShowSymptoms}/>
+                    <Symptoms onSubmit={handleSubmit} setShowSymptoms={setShowSymptoms} userOptions={chatCategories[chatType]} />
                 </div>
             )}
 
@@ -66,11 +72,15 @@ const Chatbot = ({ chatType }) => {
                     chatMessages.map((chatItem, index) => (
                         <div
                             key={index}
-                            className={`mb-2 w-auto max-w-[70%] p-2 rounded-lg text-sm ${chatItem.role === "user" ? "bg-blue-200 text-right" : "bg-green-200 text-left"
-                                }`}
+                            className={`mb-2 max-w-[70%] p-2 rounded-lg text-sm ${
+                                chatItem.role === "user"
+                                    ? "ml-auto bg-blue-200 text-right" // User message (right-aligned)
+                                    : "mr-auto bg-green-200 text-left" // Bot message (left-aligned)
+                            }`}
                         >
                             <strong className="text-neutral">{chatItem.role}:</strong>
-                            <MarkdownRenderer markdown={chatItem.msg} />
+                            {/* Render AI response as Markdown */}
+                            <MarkdownRenderer markdown={chatItem.msg} />    
                         </div>
                     ))
                 ) : (

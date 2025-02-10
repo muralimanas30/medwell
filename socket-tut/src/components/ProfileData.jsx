@@ -1,5 +1,5 @@
 import React from "react";
-import { Form } from "react-router-dom";
+import { Form, redirect } from "react-router-dom";
 import { FormInput, FormCheckbox } from "./index";
 import FormRadiobox from "./FormRadiobox";
 import { toast } from "react-toastify";
@@ -20,9 +20,11 @@ export const action = (store) => async ({ request }) => {
     })
     try {
         // store.dispatch(loginUser(data))
-        toast.success('Form Data Submission Triggered', {
+        toast.success('Profile Updated', {
             autoClose: 1000
         })
+        return redirect('/')
+
     } catch (error) {
         toast.error('Form Data Submission Error', {
             autoClose: 1000

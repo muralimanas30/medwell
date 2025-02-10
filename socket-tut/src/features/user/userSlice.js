@@ -36,7 +36,9 @@ const userSlice = createSlice({
         logoutUser: (state) => {
             state.user = null;
             localStorage.removeItem("user");
-            toast.success("Successfully logged out");
+            toast.success("Successfully logged out",{
+                autoClose:1000
+            });
             console.log("Logout successful");
         },
         toggleTheme: (state) => {

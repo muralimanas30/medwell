@@ -1,96 +1,161 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { db, collection, addDoc, setDoc, getDoc, doc, onSnapshot } from './firebase';
+import {
+    db,
+    collection,
+    addDoc,
+    setDoc,
+    getDoc,
+    getDocs,
+    query,
+    where,
+    orderBy,
+    limit,
+    doc,
+    onSnapshot,
+} from "./firebase";
 
 const VideoChat = () => {
     const [callId, setCallId] = useState("");
     const localVideoRef = useRef(null);
     const remoteVideoRef = useRef(null);
+    const peerConnectionRef = useRef(null);
 
     // Get user role from Redux
-    const role = useSelector((state) => state.userState?.user?.role);
+    const role = useSelector((state) => state.userState.user.role);
     console.log(role);
 
-    const peerConnection = new RTCPeerConnection({
-        iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
-    });
-
     useEffect(() => {
+        // Initialize WebRTC Peer Connection
+        peerConnectionRef.current = new RTCPeerConnection({
+            iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
+        });
+
+        // Get user media (video/audio)
         navigator.mediaDevices
             .getUserMedia({ video: true, audio: true })
             .then((stream) => {
                 localVideoRef.current.srcObject = stream;
-                stream.getTracks().forEach((track) => peerConnection.addTrack(track, stream));
+                stream.getTracks().forEach((track) =>
+                    peerConnectionRef.current.addTrack(track, stream)
+                );
             })
-            .catch((error) => console.error("Error accessing media devices.", error));
+            .catch((error) => console.error("Error accessing media devices:", error));
 
-        peerConnection.ontrack = (event) => {
+        // Handle remote track (doctor's video)
+        peerConnectionRef.current.ontrack = (event) => {
             remoteVideoRef.current.srcObject = event.streams[0];
         };
 
-        peerConnection.onicecandidate = async (event) => {
-            if (event.candidate && callId) {
-                await addDoc(collection(db, "calls", callId, "iceCandidates"), event.candidate.toJSON());
-            }
+        // Cleanup function
+        return () => {
+            peerConnectionRef.current.close();
         };
-    }, [callId]);
+    }, []);
 
-    // 🚀 Start Call (Only User)
+    // 🚀 Start Call (User)
     const startCall = async () => {
         if (role !== "user") {
             alert("Only users can start a call.");
             return;
         }
 
-        const callDoc = await addDoc(collection(db, "calls"), { role: "user" });
+        // Create a new call in Firestore
+        const callDoc = await addDoc(collection(db, "calls"), {
+            role: "user",
+            createdAt: new Date(), // Timestamp for sorting
+        });
+
         setCallId(callDoc.id);
+        alert(`Call started. Share this Call ID with the doctor: ${callDoc.id}`);
 
-        const offer = await peerConnection.createOffer();
-        await peerConnection.setLocalDescription(offer);
-        await setDoc(doc(db, "calls", callDoc.id), { offer });
+        const offer = await peerConnectionRef.current.createOffer();
+        await peerConnectionRef.current.setLocalDescription(offer);
 
+        await setDoc(doc(db, "calls", callDoc.id), { offer }, { merge: true });
+
+        // Listen for doctor's answer
         onSnapshot(doc(db, "calls", callDoc.id), (snapshot) => {
             const data = snapshot.data();
-            if (data?.answer && !peerConnection.currentRemoteDescription) {
-                peerConnection.setRemoteDescription(new RTCSessionDescription(data.answer));
+            if (data?.answer && !peerConnectionRef.current.currentRemoteDescription) {
+                peerConnectionRef.current.setRemoteDescription(
+                    new RTCSessionDescription(data.answer)
+                );
             }
         });
+
+        // Handle ICE Candidates
+        peerConnectionRef.current.onicecandidate = async (event) => {
+            if (event.candidate) {
+                await addDoc(
+                    collection(db, "calls", callDoc.id, "iceCandidates"),
+                    event.candidate.toJSON()
+                );
+            }
+        };
     };
 
-    // 🚀 Join Call (Only Doctor)
+    // 🚀 Join Call (Doctor - Fetch Latest Call)
     const joinCall = async () => {
         if (role !== "doctor") {
             alert("Only doctors can accept calls.");
             return;
         }
 
-        const callDoc = doc(db, "calls", callId);
-        const callData = (await getDoc(callDoc)).data();
+        try {
+            // Query Firestore for the latest call initiated by a user
+            const callsQuery = query(
+                collection(db, "calls"),
+                where("role", "==", "user"),
+                orderBy("createdAt", "desc"),
+                limit(1)
+            );
 
-        if (!callData) {
-            alert("Invalid Call ID");
-            return;
-        }
+            const querySnapshot = await getDocs(callsQuery);
 
-        if (callData.role !== "user") {
-            alert("This call was not initiated by a user.");
-            return;
-        }
+            if (querySnapshot.empty) {
+                alert("No active calls available.");
+                return;
+            }
 
-        if (callData?.offer) {
-            await peerConnection.setRemoteDescription(new RTCSessionDescription(callData.offer));
-            const answer = await peerConnection.createAnswer();
-            await peerConnection.setLocalDescription(answer);
-            await setDoc(callDoc, { answer }, { merge: true });
-        }
+            // Get the latest call's ID
+            const latestCall = querySnapshot.docs[0];
+            setCallId(latestCall.id); // Automatically set Call ID in state
 
-        onSnapshot(collection(db, "calls", callId, "iceCandidates"), (snapshot) => {
-            snapshot.docChanges().forEach((change) => {
-                if (change.type === "added") {
-                    peerConnection.addIceCandidate(new RTCIceCandidate(change.doc.data()));
-                }
+            const callData = latestCall.data();
+
+            if (!callData.offer) {
+                alert("No valid offer found for this call.");
+                return;
+            }
+
+            // Accept the call
+            await peerConnectionRef.current.setRemoteDescription(
+                new RTCSessionDescription(callData.offer)
+            );
+            const answer = await peerConnectionRef.current.createAnswer();
+            await peerConnectionRef.current.setLocalDescription(answer);
+
+            // Save the answer in Firestore
+            await setDoc(doc(db, "calls", latestCall.id), { answer }, { merge: true });
+
+            // Listen for ICE candidates
+            onSnapshot(collection(db, "calls", latestCall.id, "iceCandidates"), (snapshot) => {
+                snapshot.docChanges().forEach((change) => {
+                    if (change.type === "added") {
+                        peerConnectionRef.current.addIceCandidate(
+                            new RTCIceCandidate(change.doc.data())
+                        );
+                    }
+                });
             });
-        });
+
+            alert(`Joined call successfully with ID: ${latestCall.id}`);
+
+        } catch (error) {
+            console.error("Error joining call:", error);
+            alert("Failed to join the call.");
+        }
     };
 
     return (
@@ -101,17 +166,20 @@ const VideoChat = () => {
             <video ref={localVideoRef} autoPlay playsInline></video>
             <video ref={remoteVideoRef} autoPlay playsInline></video>
 
-            {role === "user" && <button className="btn btn-primary" onClick={startCall}>Start Call</button>}
+            {role === "user" && (
+                <>
+                    <button onClick={startCall}>Start Call</button>
+                    {callId && (
+                        <p>
+                            Call ID: <b>{callId}</b> (Waiting for doctor to join)
+                        </p>
+                    )}
+                </>
+            )}
 
             {role === "doctor" && (
                 <>
-                    <input
-                        type="text"
-                        value={callId}
-                        onChange={(e) => setCallId(e.target.value)}
-                        placeholder="Enter Call ID"
-                    />
-                    <button onClick={joinCall}>Join Call</button>
+                    <button onClick={joinCall}>Join Latest Call</button>
                 </>
             )}
         </div>

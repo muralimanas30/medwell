@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const ModelPage = () => {
     return (
-        <section className="w-full mx-auto px-0 py-0">
+        <section className="w-full bg-base-200 mx-auto px-0 py-0">
             <div className="sm:ml-12 breadcrumbs text-sm sm:text-md">
                 <ul>
                     <li>
@@ -35,7 +35,6 @@ const ModelPage = () => {
             {/* Call-to-Action Section */}
             <div className="mt-12 text-center">
                 <p className="text-gray-600">Not sure where to start?</p>
-                <Link to="/models/health" className="btn btn-primary mt-4">Try AI Health Advisor</Link>
             </div>
         </section>
     );

@@ -5,11 +5,11 @@ const FormRadiobox = ({ label, name, defaultChecked, options, required, ...rest 
     return (
         <div className="form-control">
             <label className="label">
-                <span className="label-text capitalize">{label}</span>
+                <span className="label-text text-neutral capitalize">{label}</span>
             </label>
             <div className="flex gap-3 flex-wrap">
                 {options.map((option) => (
-                    <label key={option.value} className="label cursor-pointer inline-flex items-center"> {/* inline-flex added */}
+                    <label key={option.value} className="label text-neutral cursor-pointer inline-flex items-center"> {/* inline-flex added */}
                         <input
                             type="radio"
                             name={name}

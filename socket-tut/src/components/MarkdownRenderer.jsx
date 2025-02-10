@@ -6,7 +6,7 @@ const MarkdownRenderer = ({ markdown }) => {
     const safeMarkdown = markdown || "No response available.";
 
     return (
-        <div className="text-neutral prose max-w-full">
+        <div className="text-neutral rose max-w-full">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{safeMarkdown}</ReactMarkdown>
         </div>
     );

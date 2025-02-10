@@ -1,15 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendMessage, getAllChats } from '../features/chat/chatSlice';
 import MarkdownRenderer from './MarkdownRenderer'; // Import the MarkdownRenderer
 
-
 const Chatbot = ({ chatType }) => {
     const dispatch = useDispatch();
     const chatMessages = useSelector((state) => state.chat[chatType]);
-    const { loading } = useSelector(state => state.chat)
+    const { loading } = useSelector(state => state.chat);
     const [message, setMessage] = useState("");
+
+    // Ref for the chat container
+    const chatContainerRef = useRef(null);
+
+    // Scroll to bottom whenever chatMessages updates
+    useEffect(() => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
+    }, [chatMessages]);
+
+    useEffect(() => {
+        handleGetChats();
+    }, []);
+
 
     const handleSendMessage = () => {
         if (!message.trim()) return;
@@ -20,23 +34,28 @@ const Chatbot = ({ chatType }) => {
     const handleGetChats = () => {
         dispatch(getAllChats());
     };
-//temp
+
     return (
         <div className="w-full mx-auto my-6 p-6 bg-white shadow-lg rounded-lg">
             <h2 className="text-lg font-bold text-gray-800 mb-3">Chatbot ({chatType})</h2>
             {/* Chatbox */}
-            <div className="h-96 overflow-y-auto border border-gray-300 p-3 rounded-lg bg-gray-100">
+            <div
+                ref={chatContainerRef} // Attach the ref here
+                className="h-96 overflow-y-auto border border-gray-300 p-3 rounded-lg bg-gray-100"
+            >
                 {chatMessages && chatMessages.length > 0 ? (
                     chatMessages.map((chatItem, index) => (
                         <div
                             key={index}
-                            className={`mb-2  w-automax-w-[70%] p-2 rounded-lg text-sm ${
-                                chatItem.role === "user" ? "bg-blue-200 text-right" : "bg-green-200 text-left"
+                            className={`mb-2 max-w-[70%] p-2 rounded-lg text-sm ${
+                                chatItem.role === "user"
+                                    ? "ml-auto bg-blue-200 text-right" // User message (right-aligned)
+                                    : "mr-auto bg-green-200 text-left" // Bot message (left-aligned)
                             }`}
                         >
                             <strong className="text-neutral">{chatItem.role}:</strong>
                             {/* Render AI response as Markdown */}
-                            <MarkdownRenderer markdown={chatItem.msg} />
+                            <MarkdownRenderer markdown={chatItem.msg} />    
                         </div>
                     ))
                 ) : (

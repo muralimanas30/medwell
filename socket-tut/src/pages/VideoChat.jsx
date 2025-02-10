@@ -23,18 +23,17 @@ const VideoChat = () => {
 
     // Get user role from Redux
     const role = useSelector((state) => state.userState.user.role);
-    console.log(role);
 
     useEffect(() => {
-        // Initialize WebRTC Peer Connection
+        console.log("Initializing WebRTC Peer Connection...");
         peerConnectionRef.current = new RTCPeerConnection({
             iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
         });
 
-        // Get user media (video/audio)
         navigator.mediaDevices
             .getUserMedia({ video: true, audio: true })
             .then((stream) => {
+                console.log("User media obtained successfully.");
                 localVideoRef.current.srcObject = stream;
                 stream.getTracks().forEach((track) =>
                     peerConnectionRef.current.addTrack(track, stream)
@@ -42,13 +41,13 @@ const VideoChat = () => {
             })
             .catch((error) => console.error("Error accessing media devices:", error));
 
-        // Handle remote track (doctor's video)
         peerConnectionRef.current.ontrack = (event) => {
+            console.log("Received remote track.");
             remoteVideoRef.current.srcObject = event.streams[0];
         };
 
-        // Cleanup function
         return () => {
+            console.log("Cleaning up WebRTC connection...");
             peerConnectionRef.current.close();
         };
     }, []);
@@ -60,33 +59,37 @@ const VideoChat = () => {
             return;
         }
 
-        // Create a new call in Firestore
+        console.log("Starting a new call...");
+
         const callDoc = await addDoc(collection(db, "calls"), {
             role: "user",
-            createdAt: new Date(), // Timestamp for sorting
+            createdAt: new Date(),
         });
 
         setCallId(callDoc.id);
-        alert(`Call started. Share this Call ID with the doctor: ${callDoc.id}`);
+        console.log(`Call started with ID: ${callDoc.id}`);
 
         const offer = await peerConnectionRef.current.createOffer();
         await peerConnectionRef.current.setLocalDescription(offer);
+        console.log("Offer created and set as local description.");
 
         await setDoc(doc(db, "calls", callDoc.id), { offer }, { merge: true });
+        console.log("Offer stored in Firestore.");
 
-        // Listen for doctor's answer
         onSnapshot(doc(db, "calls", callDoc.id), (snapshot) => {
             const data = snapshot.data();
+            console.log("Firestore call document updated:", data);
             if (data?.answer && !peerConnectionRef.current.currentRemoteDescription) {
+                console.log("Setting remote description from doctor's answer...");
                 peerConnectionRef.current.setRemoteDescription(
                     new RTCSessionDescription(data.answer)
                 );
             }
         });
 
-        // Handle ICE Candidates
         peerConnectionRef.current.onicecandidate = async (event) => {
             if (event.candidate) {
+                console.log("New ICE candidate generated:", event.candidate);
                 await addDoc(
                     collection(db, "calls", callDoc.id, "iceCandidates"),
                     event.candidate.toJSON()
@@ -102,8 +105,9 @@ const VideoChat = () => {
             return;
         }
 
+        console.log("Attempting to join the latest call...");
+
         try {
-            // Query Firestore for the latest call initiated by a user
             const callsQuery = query(
                 collection(db, "calls"),
                 where("role", "==", "user"),
@@ -114,44 +118,45 @@ const VideoChat = () => {
             const querySnapshot = await getDocs(callsQuery);
 
             if (querySnapshot.empty) {
+                console.log("No active calls found.");
                 alert("No active calls available.");
                 return;
             }
 
-            // Get the latest call's ID
             const latestCall = querySnapshot.docs[0];
-            setCallId(latestCall.id); // Automatically set Call ID in state
+            setCallId(latestCall.id);
+            console.log(`Joining call with ID: ${latestCall.id}`);
 
             const callData = latestCall.data();
 
             if (!callData.offer) {
+                console.log("No valid offer found in the call document.");
                 alert("No valid offer found for this call.");
                 return;
             }
 
-            // Accept the call
             await peerConnectionRef.current.setRemoteDescription(
                 new RTCSessionDescription(callData.offer)
             );
+            console.log("Remote description set with the received offer.");
+
             const answer = await peerConnectionRef.current.createAnswer();
             await peerConnectionRef.current.setLocalDescription(answer);
+            console.log("Answer created and set as local description.");
 
-            // Save the answer in Firestore
             await setDoc(doc(db, "calls", latestCall.id), { answer }, { merge: true });
+            console.log("Answer stored in Firestore.");
 
-            // Listen for ICE candidates
             onSnapshot(collection(db, "calls", latestCall.id, "iceCandidates"), (snapshot) => {
                 snapshot.docChanges().forEach((change) => {
                     if (change.type === "added") {
+                        console.log("Adding received ICE candidate:", change.doc.data());
                         peerConnectionRef.current.addIceCandidate(
                             new RTCIceCandidate(change.doc.data())
                         );
                     }
                 });
             });
-
-            alert(`Joined call successfully with ID: ${latestCall.id}`);
-
         } catch (error) {
             console.error("Error joining call:", error);
             alert("Failed to join the call.");

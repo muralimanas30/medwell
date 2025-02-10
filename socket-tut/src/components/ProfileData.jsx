@@ -64,7 +64,7 @@ const ProfileData = () => {
                         >
                             <FormInput
                                 label="Age"
-                                type="number"
+                                type="number"x
                                 name="age"
                                 defaultValue="25"
                                 required={true}
@@ -78,7 +78,6 @@ const ProfileData = () => {
                                 options={[
                                     { value: "male", label: "Male" },
                                     { value: "female", label: "Female" },
-                                    { value: "other", label: "Other" },
                                 ]}
                                 onChange={(e) => console.log(e.target.value)}
                                 required={true}
